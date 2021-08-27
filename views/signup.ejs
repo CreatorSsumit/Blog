@@ -1,0 +1,101 @@
+<%  include ./split/header.ejs%>
+
+
+    <hr><br>
+    <h4 style="text-align: center; letter-spacing: 5px; font-weight: 500;">SIGN UP NOW</h4>
+    <br><br>
+    <div class="container">
+        <form action="/signup" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <input name="name" type="text" class="form-control" id="inputEmail4" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Username</label>
+                    <input style="outline: none;" type="text" name="username" class="form-control" id="username" required>
+                    <label id="error"></label>
+                </div>
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Password</label>
+                    <input type="password" name="password" class="form-control" id="inputCity" required>
+                </div>
+
+                <div class="form-group col-md-5">
+                    <label for="inputZip">Confirm password</label>
+                    <input type="password" name="cpassword" class="form-control" id="inputZip" required>
+                    <h6 style="color: rgb(252, 101, 101); font-size: 15px; margin-top: 10px;">
+                        <%= wrong%>
+                    </h6>
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" name="city" class="form-control" id="inputCity" required>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="number" name="zip" class="form-control" id="inputZip" required>
+                </div>
+            </div>
+
+            <button id="btn" type="submit" class="btn btn-success">Sign Up</button>
+        </form>
+    </div>
+    <br>
+
+<script>
+var usernamess = document.querySelector("#username");
+usernamess.addEventListener('input' , function(){
+    if (usernamess.value.trim().length!=0){
+
+// ' a'.split(''); ' a'.split('')[0] 
+
+// 'a a'.replace(' ',"_")
+// .trim() = space remove
+
+axios.post('http://localhost:3000/datafile', {
+         username: usernamess.value
+         }).then(function(e) {
+             
+             if (e.data === null) {
+                usernamess.style.border = '1px solid blue'
+    document.querySelector("#error").textContent = " ";
+    
+
+    document.querySelector("#btn").removeAttribute('disabled');
+    
+   
+
+
+} else {
+    
+    usernamess.style.border = '1px solid red';
+    document.querySelector("#error").textContent = "already taken !" ;
+    document.querySelector("#btn").setAttribute('disabled','true');
+   
+   
+}
+
+
+})
+
+
+}else{
+usernamess.style.border = '1px solid #dadada'
+document.querySelector("#error").textContent = " ";
+
+}
+
+
+})
+</script>
+    <% include ./split/footer.ejs%>

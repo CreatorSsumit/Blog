@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+ 
+    
+</head>
+
+<body>
+    <nav style="background-image: linear-gradient(rgb(7, 148, 124),rgb(9, 194, 154));" class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/home">Pretty</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <% if (isAuthenticated){%>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Posts</a>
+                    </li>
+
+
+
+                </ul>
+
+                
+                
+                <% }else{ %>
+
+                    <%  } %>
+
+
+
+                        <% if (isAuthenticated)
+                {%>
+                    <div style="position: absolute; left: 83%;">
+                        <div id="pic"  style="width: 45px; position: relative; border-radius: 50%; border: 2px solid rgb(181, 181, 255); height: 45px; background-color: #f3f3f3;" id="profilepic">
+                         <img style="width: 100%;border-radius: 50%; height: 100%;background-size: cover;background-position: center;" src='<%= profilepic.profilepic%>'>
+                         <i id="edit" style="position: absolute;opacity: 0; pointer-events: none; top: 6px; right: 10px; cursor: pointer;"  class="fa fa-pencil" aria-hidden="true"></i>
+                             
+                    
+                        </div>
+                        <form action="/uploadpic" enctype="multipart/form-data" method="post">
+                        <input style="display: none;" accept="image/png,image/jpeg,image/gif " type="file" name="file" id="file">
+                        <input id="submit" style="display: none;"  type="submit" value="submit">
+                        </form>
+                    </div>
+                            <a style="margin-left: 75%;" class="btn btn-warning" href="/logout" role="button">Logout &copy<%= profilepic.name%></a>
+                            <% }%>
+
+
+
+            </div>
+    </nav>
+
+
+
+
+
+    <div style="margin-top: 50px;" class="container">
+        <label style="font-size: 20px;" for="exampleFormControlTextarea1">Write your memories having in your mind </label>
+        <form id="postdata" action="/postdata" method="POST">
+            <div class="form-group">
+                <label style="color: rgb(5, 141, 89);" for="exampleFormControlTextarea1">@ <%= name%></label>
+                <textarea required name="post" placeholder="Enter about your best thing like tour , place , etc" style="resize: none;" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <input id="postdata" style="margin-top: 10px;color: #fff; background-color: rgb(0, 212, 142);" class="btn btn" type="submit" value="Submit">
+            </div>
+        </form>
+
+        <br><br>
+        <hr size="4px">
+        <br>
+
+        <label style="font-size: 20px;" for="exampleFormControlTextarea1">Recent Posts</label>
+
+        <% savepost.reverse().forEach(function(saveposts){ %>
+
+            <form>
+                <div style="margin-bottom: 10px;" class="form-group">
+                    <label style="color: rgb(5, 141, 89);" for="exampleFormControlTextarea1">@ <%= saveposts.username%></label>
+                    <textarea disabled class="form-control" style="resize: none;" id="exampleFormControlTextarea1" rows="1"><%= saveposts.post%></textarea> likes : <label style="font-size: 14px;"><%= saveposts.like.length%></label>
+                </div>
+                <a class="btn btn " role="button" style="background-color: rgb(8, 185, 118);  margin-bottom: 20px; color: white;" href=<%="/like/" + saveposts._id%>>Like</a>
+
+            </form>
+
+
+            <%}) %>
+
+
+
+
+
+    </div>
+
+    <script>
+        $(window).scroll(function() {
+            sessionStorage.scrollPos = $(window).scrollTop();
+        });
+        var init = function() {
+            $(window).scrollTop(sessionStorage.scrollPos || 0)
+        };
+        window.onload = init;
+    </script>
+
+    <script>
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+
+
+    <%  include ./split/footer.ejs%>

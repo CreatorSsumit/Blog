@@ -1,0 +1,42 @@
+<%  include ./split/header.ejs%>
+
+
+    <hr><br>
+    <h4 style="text-align: center; letter-spacing: 5px; font-weight: 500;">Update Details NOW</h4>
+    <br><br>
+    <div class="container">
+        <form method="POST" action=<%="/update/" + name._id%>>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <input name="name" type="text" class="form-control" value="<%= name.name%>" id="inputEmail4" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Username</label>
+                    <input type="text" name="username" class="form-control" value="<%= name.username%>" id="inputPassword4" required>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" name="city" class="form-control" value="<%= name.city%>" id="inputCity" required>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="number" name="zip" class="form-control" value="<%= name.zip%>" id="inputZip" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+
+
+
+        </form>
+    </div>
+    <br>
+
+
+    <% include ./split/footer.ejs%>

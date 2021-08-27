@@ -1,0 +1,41 @@
+<%  include ./split/header.ejs%>
+
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome,
+                <%= name.name%>
+            </h1>
+            <p class="lead">Thank you so much to visit my pretty site.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+
+        </div>
+
+
+        <hr><br>
+        <div class="card" style="width: 18rem;">
+
+            <div class="card-body">
+                <h5 style="font-size: 20px;" class="card-title"> Your Details</h5>
+                <p class="card-text">
+                    Username:
+                    <%= name.username%>
+                </p>
+                <p class="card-text">
+                    City:
+                    <%= name.city%>
+                </p>
+                <p class="card-text">
+                    Zip:
+                    <%= name.zip%>
+                </p>
+                <a style="background-image: linear-gradient(rgb(5, 199, 167),rgb(9, 194, 154)); color: white;" class="btn btn" href=<%="/update/" +name._id%> >Update details</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <%  include ./split/footer.ejs%>
